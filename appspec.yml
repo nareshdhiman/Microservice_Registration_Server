@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+  - source: registration-server-0.0.1-SNAPSHOT.jar
+    destination: /opt/myapps/registration-server
+hooks:
+  ApplicationStop:
+    - location: stop.sh
+      timeout: 60
+  ApplicationStart:
+    - location: start.sh
+      timeout: 300
+  ValidateService:
+    - location: monitor.sh
+      timeout: 300
+  BeforeInstall:
+    - location: prepare.sh
