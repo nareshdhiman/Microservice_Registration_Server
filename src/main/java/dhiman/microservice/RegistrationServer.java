@@ -16,7 +16,9 @@ public class RegistrationServer {
 	 *            Program arguments - ignored.
 	 */
 	public static void main(String[] args) {
-		// Tell server to look for registration.properties or registration.yml
+        
+        
+		// Tell server to look for registration.properties or registration-server.yml in the resource dir
 		System.setProperty("spring.config.name", "registration-server");
 
 		SpringApplication.run(RegistrationServer.class, args);
