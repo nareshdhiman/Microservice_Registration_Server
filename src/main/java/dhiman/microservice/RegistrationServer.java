@@ -20,6 +20,7 @@ public class RegistrationServer {
         
 		// Tell server to look for registration.properties or registration-server.yml in the resource dir
         //New comment
+        //
 		System.setProperty("spring.config.name", "registration-server");
 
 		SpringApplication.run(RegistrationServer.class, args);
