@@ -1,10 +1,5 @@
 env.DOCKERHUB_USERNAME = 'nareshdhiman'
 
-tools {
-  maven 'Apache Maven 3.3.9'
-  jdk 'jdk8'
-}
-
 node("docker-test") {
 
   checkout scm
