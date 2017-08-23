@@ -6,7 +6,8 @@ RUN apt-get install -y maven
 
 # prepare
 ADD pom.xml /code/pom.xml
-RUN ["mvn", "clean"]
+# RUN ["mvn", "dependency:resolve"]
+# RUN ["mvn", "clean"]
 
 # add source
 ADD src /code/src
