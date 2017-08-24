@@ -50,7 +50,7 @@ node("docker-test") {
           do
             STATUS=$(docker service inspect --format '{{ .UpdateStatus.State }}' microservice-registration-server)
             if [[ "$STATUS" != "updating" ]]; then
-              docker run --rm -v ${WORKSPACE}:/microservice-registration-server --network microservice-registration-server -e SERVER=microservice-registration-server mvn test
+              docker run --rm -v ${WORKSPACE}:/microservice-registration-server --network microservice-registration-server maven mvn test
               break
             fi
             sleep 10s
