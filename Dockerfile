@@ -16,5 +16,5 @@ RUN ["mvn", "package"]
 
 EXPOSE 8080
 
-ADD  /code/target/registration-server-0.0.1-SNAPSHOT.jar /code/registration-server-0.0.1-SNAPSHOT.jar
-CMD java -jar /code/registration-server-0.0.1-SNAPSHOT.jar
+# ADD  /code/target/registration-server-0.0.1-SNAPSHOT.jar /code/registration-server-0.0.1-SNAPSHOT.jar
+CMD java -jar target/registration-server-0.0.1-SNAPSHOT.jar
