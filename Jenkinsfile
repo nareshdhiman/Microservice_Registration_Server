@@ -5,14 +5,16 @@ node("docker-test") {
   checkout scm
   
   stage("Integration test") {
+    sh "echo -------Running Integration test--------------"
     try {
       sh "docker build -t microservice-registration-server ."
       sh "docker rm -f microservice-registration-server || true"
       sh "docker run -d -p 1111:1111 --name=microservice-registration-server microservice-registration-server"
-      sh "docker run --rm -v ${WORKSPACE}:/Microservice_Registration_Server --link=microservice-registration-server java java -jar target/registration-server-0.0.1-SNAPSHOT.jar"   
+      // sh "docker run --rm -v ${WORKSPACE}:/Microservice_Registration_Server --link=microservice-registration-server java java -jar target/registration-server-0.0.1-SNAPSHOT.jar"   
     } catch(e) {
       error "Integration Test failed"
     } finally {
+      sh "echo in finally,removing image"
       sh "docker rm -f microservice-registration-server || true"
     }
   }
@@ -30,6 +32,8 @@ node("docker-test") {
 
 node("docker-test") {
     stage("Production") {
+      sh "echo -------Running Production--------------"
+
       try {
         // Create the service if it doesn't exist otherwise just update the image
         sh '''
@@ -61,6 +65,7 @@ node("docker-test") {
         sh "docker service update --rollback  microservice-registration-server"
         error "Service update failed in production"
       }finally {
+        sh "echo in finally,removing image"
         sh "docker ps -aq | xargs docker rm || true"
       }
     }
