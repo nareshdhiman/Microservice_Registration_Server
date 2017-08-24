@@ -1,5 +1,5 @@
 env.DOCKERHUB_USERNAME = 'nareshdhiman'
-/**
+
 node("docker-test") {
 
   checkout scm
@@ -9,11 +9,11 @@ node("docker-test") {
       sh "docker build -t microservice-registration-server ."
       sh "docker rm -f microservice-registration-server || true"
       sh "docker run -d -p 1111:1111 --name=microservice-registration-server microservice-registration-server"
-      // sh "docker run --rm -v ${WORKSPACE}:/Microservice_Registration_Server --link=microservice-registration-server -e SERVER=microservice-registration-server mvn clean install"   
+      sh "docker run --rm -v ${WORKSPACE}:/Microservice_Registration_Server --link=microservice-registration-server java java -jar target/registration-server-0.0.1-SNAPSHOT.jar"   
     } catch(e) {
       error "Integration Test failed"
     } finally {
-      // sh "docker rm -f microservice-registration-server || true"
+      sh "docker rm -f microservice-registration-server || true"
     }
   }
 
@@ -27,7 +27,7 @@ node("docker-test") {
     }
   }
 }
-*/
+
 node("docker-test") {
     stage("Production") {
       try {
@@ -50,7 +50,7 @@ node("docker-test") {
           do
             STATUS=$(docker service inspect --format '{{ .UpdateStatus.State }}' microservice-registration-server)
             if [[ "$STATUS" != "updating" ]]; then
-              docker run --rm -v ${WORKSPACE}:/microservice-registration-server --network microservice-registration-server maven mvn test
+              docker run --rm -v ${WORKSPACE}:/microservice-registration-server --network microservice-registration-server java java -jar target/registration-server-0.0.1-SNAPSHOT.jar 
               break
             fi
             sleep 10s
