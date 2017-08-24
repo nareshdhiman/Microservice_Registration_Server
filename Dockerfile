@@ -14,7 +14,7 @@ RUN ["mvn", "dependency:resolve"]
 ADD src /code/src
 RUN ["mvn", "package"]
 
-EXPOSE 8080
+EXPOSE 1111
 
 # ADD  /code/target/registration-server-0.0.1-SNAPSHOT.jar /code/registration-server-0.0.1-SNAPSHOT.jar
 CMD java -jar target/registration-server-0.0.1-SNAPSHOT.jar
