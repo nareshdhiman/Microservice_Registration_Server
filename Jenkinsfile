@@ -13,12 +13,12 @@ node("docker-test") {
     } catch(e) {
       error "Integration Test failed"
     } finally {
-      sh "docker rm -f microservice-registration-server || true"
+      // sh "docker rm -f microservice-registration-server || true"
     }
   }
 
   stage("Build") {
-      sh "docker build -t ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} ."
+    sh "docker build -t ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} ."
   }
   
   stage("Publish") {
