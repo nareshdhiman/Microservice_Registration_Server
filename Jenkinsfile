@@ -37,7 +37,7 @@ node("docker-test") {
           if [[ "$SERVICES" -eq 0 ]]; then
             docker network rm microservice-registration-server || true
             docker network create --driver overlay --attachable microservice-registration-server
-            docker service create --replicas 3 --network microservice-registration-server --name microservice-registration-server -p 1111:1111 ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER}
+            docker service create --replicas 3 --network microservice-registration-server --name microservice-registration-server -p 1111:1111 ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER}
           else
             docker service update --image ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} microservice-registration-server
           fi
