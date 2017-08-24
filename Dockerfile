@@ -8,7 +8,7 @@ RUN apt-get install -y maven
 ADD pom.xml /code/pom.xml
 WORKDIR /code
 RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
+#RUN ["mvn", "verify"]
 
 # add source
 ADD src /code/src
