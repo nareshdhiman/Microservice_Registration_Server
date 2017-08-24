@@ -48,27 +48,9 @@ node("docker-test") {
             docker service update --image ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} microservice-registration-server
           fi
           '''
-        // run some final tests in production
-        checkout scm
-        sh '''
-          sleep 60s 
-          for i in `seq 1 20`;
-          do
-            STATUS=$(docker service inspect --format '{{ .UpdateStatus.State }}' microservice-registration-server)
-            if [[ "$STATUS" != "updating" ]]; then
-              docker run --rm -v ${WORKSPACE}:/microservice-registration-server --network microservice-registration-server java java -jar target/registration-server-0.0.1-SNAPSHOT.jar 
-              break
-            fi
-            sleep 10s
-          done
-          
-        '''
       }catch(e) {
         sh "docker service update --rollback  microservice-registration-server"
         error "Service update failed in production"
-      }finally {
-        sh "echo in finally,removing image"
-        sh "docker ps -aq | xargs docker rm || true"
       }
     }
   }
