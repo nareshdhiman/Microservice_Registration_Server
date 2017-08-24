@@ -20,11 +20,13 @@ node("docker-test") {
   }
 
   stage("Build") {
+    sh "Building image for local docker respository"
     sh "docker build -t ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} ."
   }
   
   stage("Publish") {
     withDockerRegistry([credentialsId: 'DockerHub']) {
+      sh "Publishing image to docker respository"
       sh "docker push ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER}"
     }
   }
