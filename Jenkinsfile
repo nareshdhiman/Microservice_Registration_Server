@@ -18,7 +18,7 @@ node("register-test") {
       sh "docker rm -f microservice-registration-server || true"
     }
   }
-/*
+
   stage("Build") {
     sh "echo Building image for local docker respository"
     sh "docker build -t ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER} ."
@@ -29,9 +29,9 @@ node("register-test") {
       sh "echo Publishing image to docker respository"
       sh "docker push ${DOCKERHUB_USERNAME}/microservice-registration-server:${BUILD_NUMBER}"
     }
-  }*/
+  }
 }
-/*
+
   node("register-stage") {
     checkout scm
 
@@ -71,4 +71,4 @@ node("register-prod") {
         sh "docker ps -aq | xargs docker rm || true"
       }
     }
-  }*/
+  }
